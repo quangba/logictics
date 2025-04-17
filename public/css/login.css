@@ -55,4 +55,12 @@ input:-webkit-autofill {
   .page-login form {
     width: auto;
   }
+  .page-login .page-content {
+    width: 80%;
+  }
+  .page-content form {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px;
+    }
 }

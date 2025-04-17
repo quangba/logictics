@@ -122,6 +122,14 @@
         </div>
     </div>
 
+    <style>
+        @media (max-width: 479px) {
+            .panel-body {
+                padding-bottom: 50px !important;
+            }
+        }
+    </style>
+
 @endsection()
 
 @section('script')

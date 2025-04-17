@@ -83,4 +83,12 @@
             </div>
         </div>
     </div>
+
+    <style>
+        @media (max-width: 375px) {
+            .panel-body {
+                padding-bottom: 40px !important;
+            }
+        }
+    </style>
 @endsection
