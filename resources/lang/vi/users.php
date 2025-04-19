@@ -15,4 +15,5 @@ return [
     'create' => 'Thêm mới',
     'list' => 'Danh Sách',
     'name' => 'Tên',
+    'delete_success' => 'Xoá users thành công',
 ];

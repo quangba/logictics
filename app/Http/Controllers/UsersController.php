@@ -11,7 +11,8 @@ use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
-use App\Repositories\UserRepository;
+use App\Contracts\Repositories\UserRepository;
+use Illuminate\Http\Request;
 use App\Validators\UserValidator;
 
 /**
@@ -80,6 +81,10 @@ class UsersController extends Controller
                 'data' => $users,
             ]);
         }
+        if (request()->ajax()) {
+            return view('includes.users.table', compact('users', 'rank'))->render();
+        }
+
 
         return view('pages.users.index', compact('users', 'rank'));
     }
@@ -264,5 +269,45 @@ class UsersController extends Controller
         }
 
         return redirect()->back()->with('message', 'User deleted.');
+    }
+    /**
+     * Delete multiple users selected via checkboxes.
+     *
+     * @param \Illuminate\Http\Request $request  The request containing an array of user IDs to delete (ids[])
+     * @return \Illuminate\Http\JsonResponse     JSON response indicating the result of the deletion
+     */
+    public function bulkDelete(Request $request)
+    {
+        $dataIds = $request->ids;
+        $currentUserId = auth()->id();
+
+        if (in_array($currentUserId, $dataIds) || in_array(SUPER_ADMIN_ID, $dataIds)) {
+            return response()->json([
+                'message' => 'không xoá được user login hoặc Admin.',
+                'deleted' => false,
+            ], 403); // Forbidden
+        }
+        $deleted = $this->userService->bulkDelete($dataIds);
+
+        if (request()->wantsJson()) {
+
+            return response()->json([
+                'message' => __('users.delete_success'),
+                'deleted' => $deleted,
+            ]);
+        }
+        $users = $this->userRepository
+        ->with('permissions')
+        ->where('id', '!=', SUPER_ADMIN_ID)
+        ->orderBy('name')
+        ->paginate(PAGINATE_RECORD)
+        ->setPath(route('users.index'));
+        $rank = $users->firstItem();
+        $html = view('includes.users.table', compact('users', 'rank'))->render();
+
+        return response()->json([
+            'message' => 'Đã xoá thành công!',
+            'html' => $html
+        ]);
     }
 }

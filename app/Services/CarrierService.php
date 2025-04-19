@@ -71,6 +71,19 @@ class CarrierService
             DB::rollBack();
         }
     }
+    public function bulkDelete($data)
+    {
+        DB::beginTransaction();
+        try {
+            $this->carrierRepository->whereIn('id', $data)->delete();
+
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
 
 }
 

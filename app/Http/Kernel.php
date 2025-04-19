@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
         'logout_if_not_active' => \App\Http\Middleware\LogoutIfNotActive::class,
         'except_super_admin' => \App\Http\Middleware\ExceptSuperAdminUser::class,
+        'carrier_permission' => \App\Http\Middleware\CheckCarrierPermission::class,
     ];
 
     /**
