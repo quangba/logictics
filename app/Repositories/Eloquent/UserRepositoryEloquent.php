@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\UserRepository;
+use App\Contracts\Repositories\UserRepository;
 use App\Entities\User;
 use App\Validators\UserValidator;
 
