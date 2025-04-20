@@ -27,7 +27,7 @@ class CarrierCreateRequest extends FormRequest
             'carrier' => 'required|max:255',
             'pol' => 'required|max:255',
             'pod' => 'required|max:255',
-            'freight' => 'required|unique:freight|max:255',
+            'freight' => 'required|unique:carriers,freight|max:255',
             'expired' => 'required',
             'effective' => 'required',
         ];
