@@ -24,7 +24,9 @@ Route::middleware(['auth', 'logout_if_not_active'])->group(function () {
     Route::patch('/users/change-password', 'UsersController@changePassword')->name('users.change.password');
 
     Route::resource('users', 'UsersController')->except(['destroy', 'show']);
+    Route::post('/users/bulk-delete', 'UsersController@bulkDelete')->name('users.bulkDelete');
     Route::resource('carrier', 'CarriersController');
+    Route::post('/carriers/bulk-delete', 'CarriersController@bulkDelete')->name('carrier.bulkDelete');
     Route::get('/search', 'CarriersController@search')->name('carrier.search');
     Route::get('/export', 'CarriersController@export')->name('carrier.export');
     Route::get('/import', 'CarriersController@import')->name('carrier.import');

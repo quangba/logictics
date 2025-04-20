@@ -44,6 +44,7 @@ class CarriersController extends Controller
      */
     public function __construct(CarrierRepository $repository, CarrierValidator $validator, CarrierService $carrierService)
     {
+        $this->middleware('carrier_permission');
         $this->repository = $repository;
         $this->validator  = $validator;
         $this->carrierService = $carrierService;
@@ -66,6 +67,9 @@ class CarriersController extends Controller
             return response()->json([
                 'data' => $carriers,
             ]);
+        }
+        if (request()->ajax()) {
+            return view('includes.carriers.table', compact('carriers'))->render();
         }
 
         return view('pages.carriers.index', compact('carriers'));
@@ -222,7 +226,8 @@ class CarriersController extends Controller
                 ->where('pol', 'LIKE', '%' . $request->pol.'%')
                 ->where('pod', 'LIKE', '%'.$request->pod.'%')
                 ->where('freight', 'LIKE', '%'.$request->freight.'%')
-                ->paginate(10);
+                ->paginate(10)
+                ->appends($request->query());
             $count = count(Carrier::where('carrier', 'LIKE', '%'.$request->carrier.'%')
                 ->where('pol', 'LIKE', '%' . $request->pol.'%')
                 ->where('pod', 'LIKE', '%'.$request->pod.'%')
@@ -234,6 +239,9 @@ class CarriersController extends Controller
                 'freight' => trim($request->freight)
             ];
             $_SESSION["advanced"] = $values;
+            if (request()->ajax()) {
+                return view('includes.carriers.table', compact('carriers'))->render();
+            }
             return view('pages.carriers.search', compact('carriers', 'values', 'count'));
         }else{
             $keywords = trim($request->keywords);
@@ -242,13 +250,17 @@ class CarriersController extends Controller
                 ->orWhere('pic', 'LIKE', '%'.$request->keywords.'%')
                 ->orWhere('pol', 'LIKE', '%'.$request->keywords.'%')
                 ->orWhere('freight', 'LIKE', '%'.$request->keywords.'%')
-                ->paginate(10);
+                ->paginate(10)
+                ->appends($request->query());
             $count = count(Carrier::where('carrier', 'LIKE', '%'.$request->keywords.'%')
                 ->orWhere('pod', 'LIKE', '%'.$request->keywords.'%')
                 ->orWhere('pic', 'LIKE', '%'.$request->keywords.'%')
                 ->orWhere('pol', 'LIKE', '%'.$request->keywords.'%')
                 ->orWhere('freight', 'LIKE', '%'.$request->keywords.'%')->get());
             $_SESSION["keywords"] = $request->keywords;
+            if (request()->ajax()) {
+                return view('includes.carriers.table', compact('carriers'))->render();
+            }
             return view('pages.carriers.search', compact('carriers', 'keywords', 'count'));
         }
     }
@@ -352,5 +364,50 @@ class CarriersController extends Controller
             ];
         }
         return $result;
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        $dataIds = $request->ids;
+
+        if (auth()->id() != SUPER_ADMIN_ID) {
+            return response()->json([
+                'message' => 'Bạn không đủ thẩm quyền để xoá .',
+                'deleted' => false
+            ], 403);
+        }
+
+        $isSearch = $request->hasAny(['carrier', 'pol', 'pod', 'freight', 'keywords']);
+        $deleted = $this->carrierService->bulkDelete($dataIds);
+
+        if ($isSearch) {
+            if ($request->carrier || $request->pol || $request->pod || $request->freight) {
+                $carriers = Carrier::where('carrier', 'LIKE', '%'.$request->carrier.'%')
+                    ->where('pol', 'LIKE', '%' . $request->pol.'%')
+                    ->where('pod', 'LIKE', '%'.$request->pod.'%')
+                    ->where('freight', 'LIKE', '%'.$request->freight.'%');
+            } else {
+                $carriers = Carrier::where('carrier', 'LIKE', '%'.$request->keywords.'%')
+                    ->orWhere('pod', 'LIKE', '%'.$request->keywords.'%')
+                    ->orWhere('pic', 'LIKE', '%'.$request->keywords.'%')
+                    ->orWhere('pol', 'LIKE', '%'.$request->keywords.'%')
+                    ->orWhere('freight', 'LIKE', '%'.$request->keywords.'%');
+            }
+
+            $carriers = $carriers
+                ->paginate(10, ['*'], 'page', 1)
+                ->appends($request->except('page'))
+                ->setPath(route('carrier.search'));
+        }else {
+            $carriers = $this->repository->orderBy('carrier')->paginate()
+                ->setPath(route('carrier.index'));
+        }
+
+        $html =  view('includes.carriers.table', compact('carriers'))->render();
+
+        return response()->json([
+            'message' => 'Đã xoá thành công các Freight.',
+            'html' => $html
+        ]);
     }
 }

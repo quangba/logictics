@@ -2,7 +2,7 @@
 namespace App\Services;
 
 use App\Entities\User;
-use App\Repositories\UserRepository;
+use App\Contracts\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -93,5 +93,27 @@ class UserService
         }
 
         return false;
+    }
+
+
+
+    /**
+     * Delete multiple users by their IDs.
+     *
+     * @param $data
+     */
+    public function bulkDelete($data)
+    {
+        DB::beginTransaction();
+        try {
+            /** @var User $user */
+            $this->userRepository->whereIn('id', $data)->delete();
+
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
 }
