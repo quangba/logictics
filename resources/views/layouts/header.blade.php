@@ -11,7 +11,7 @@
             <i class="icon md-more" aria-hidden="true"></i>
         </button>
         <a class="navbar-brand navbar-brand-center" href="{{ route('dashboard') }}">
-            <img class="navbar-brand-logo navbar-brand-logo-special" src="{{ asset('theme/assets/images/logo.jpg') }}"
+            <img class="navbar-brand-logo navbar-brand-logo-special" src="{{ asset('theme/assets/images/new-logo.jpg') }}"
                  title="Remark">
         </a>
         <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search"
