@@ -376,9 +376,16 @@ class CarriersController extends Controller
                 'deleted' => false
             ], 403);
         }
+        $deleted = $this->carrierService->bulkDelete($dataIds);
+
+        if (!$deleted) {
+            return response()->json([
+                'message' => 'Xoá Freight thất bại .',
+                'deleted' => false,
+            ], 500);
+        }
 
         $isSearch = $request->hasAny(['carrier', 'pol', 'pod', 'freight', 'keywords']);
-        $deleted = $this->carrierService->bulkDelete($dataIds);
 
         if ($isSearch) {
             if ($request->carrier || $request->pol || $request->pod || $request->freight) {

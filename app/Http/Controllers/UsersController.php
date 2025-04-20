@@ -283,11 +283,18 @@ class UsersController extends Controller
 
         if (in_array($currentUserId, $dataIds) || in_array(SUPER_ADMIN_ID, $dataIds)) {
             return response()->json([
-                'message' => 'không xoá được user login hoặc Admin.',
+                'message' => 'Bạn không xoá được User này.',
                 'deleted' => false,
-            ], 403); // Forbidden
+            ], 403);
         }
         $deleted = $this->userService->bulkDelete($dataIds);
+
+        if (!$deleted) {
+            return response()->json([
+                'message' => 'Xoá User thất bại .',
+                'deleted' => false,
+            ], 500);
+        }
 
         if (request()->wantsJson()) {
 
@@ -306,7 +313,7 @@ class UsersController extends Controller
         $html = view('includes.users.table', compact('users', 'rank'))->render();
 
         return response()->json([
-            'message' => 'Đã xoá thành công!',
+            'message' => 'Đã xoá User thành công!',
             'html' => $html
         ]);
     }
