@@ -24,9 +24,9 @@
     <div class="navbar-container container-fluid">
         <div class="navbar-brand-text">
             <h3 class="mt-11">
-                <span class="text-header-1">Your shipment, </span>
+                <span class="text-header-1">Global Maritime Services </span>
                 <span class="text-underlined">
-                    <span class="text-header-1">Our mission.</span>
+                    <span class="text-header-1">Co Ltd</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M7.7,145.6C109,125,299.9,116.2,401,121.3c42.1,2.2,87.6,11.8,87.3,25.7"></path></svg>
                 </span>
             </h3>

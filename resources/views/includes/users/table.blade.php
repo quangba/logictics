@@ -3,7 +3,7 @@
     <thead style="background: #f1f4f5">
     <tr>
         @can('manage_users')
-            <th style="width: 5%" class="text-center"><input type="checkbox" id="checkAll"></th>
+            <th style="width: 5%" class="text-center"><input type="checkbox" style="cursor: pointer;" id="checkAll"></th>
         @endcan
         <th style="width: 5%" class="text-center">No</th>
         <th style="width: 25%" class="text-center">@lang('users.name')</th>
@@ -21,7 +21,7 @@
             @can('manage_users')
                 <td class="text-center">
                     @if($user->id !== Auth::id())
-                        <input type="checkbox" class="user-checkbox" value="{{ $user->id }}">
+                        <input type="checkbox" class="user-checkbox" style="cursor: pointer;" value="{{ $user->id }}">
                     @endif
                 </td>
             @endcan
