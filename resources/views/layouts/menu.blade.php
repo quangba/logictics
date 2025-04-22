@@ -9,6 +9,14 @@
                             <span class="site-menu-title">Dashboard</span>
                         </a>
                     </li>
+                    @if (Auth::user()->id == SUPER_ADMIN_ID)
+                        <li class="dropdown site-menu-item has-sub {{ Request::is('clean-config') ? 'active' : '' }}">
+                            <a href="{{ route('carrier.clean_config') }}">
+                                <i class="icon md-settings" aria-hidden="true"></i>
+                                <span class="site-menu-title">Thiết lập dữ liệu định kỳ</span>
+                            </a>
+                        </li>
+                    @endif
                     @can(MANAGE_USERS)
                     <li class="dropdown site-menu-item has-sub {{ Request::is('users*') ? 'active' : '' }}">
                         <a data-toggle="dropdown" data-dropdown-toggle="false" href="javascript:void(0)">

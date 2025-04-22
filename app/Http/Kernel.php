@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'logout_if_not_active' => \App\Http\Middleware\LogoutIfNotActive::class,
         'except_super_admin' => \App\Http\Middleware\ExceptSuperAdminUser::class,
         'carrier_permission' => \App\Http\Middleware\CheckCarrierPermission::class,
+        'only_superadmin' => \App\Http\Middleware\OnlySuperAdmin::class,
     ];
 
     /**
