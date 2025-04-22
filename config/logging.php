@@ -89,6 +89,12 @@ return [
             'driver' => 'errorlog',
             'level' => 'debug',
         ],
+
+        'carrier_clean' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/cronjod/carrier_clean.log'),
+            'level' => 'info',
+        ],
     ],
 
 ];

@@ -31,4 +31,6 @@ Route::middleware(['auth', 'logout_if_not_active'])->group(function () {
     Route::get('/export', 'CarriersController@export')->name('carrier.export');
     Route::get('/import', 'CarriersController@import')->name('carrier.import');
     Route::post('/import', 'CarriersController@storeImport')->name('carrier.storeImport');
+    Route::get('/clean-config', 'CarrierCleanConfigController@index')->name('carrier.clean_config');
+    Route::post('/clean-config', 'CarrierCleanConfigController@update')->name('carrier.clean_config.update');
 });

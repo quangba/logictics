@@ -29,6 +29,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('backup:run --only-db')->weeklyOn(2, '00:00');
 
         $schedule->command('report-image:clear')->monthly();
+
+        $schedule->command('carrier:clean')->dailyAt('00:00');
     }
 
     /**

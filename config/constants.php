@@ -25,3 +25,5 @@ const VIEW_CARRIER = 'view_carrier';
  */
 const MANAGE_USERS = 'manage_users';
 const MANAGE_CARRIER = 'manage_carrier';
+
+const DURATION = [6, 12, 18, 24, 30, 36];
