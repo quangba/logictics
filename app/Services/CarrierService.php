@@ -26,7 +26,7 @@ class CarrierService
         try {
             /** @var Carrier $carrier */
 
-                $this->carrierRepository->create([
+            $carrier = $this->carrierRepository->create([
                     'carrier' => $data['carrier'],
                     'pic' => $data['pic'] !== null ? $data['pic'] : '',
                     'pol' => $data['pol'],
@@ -42,6 +42,8 @@ class CarrierService
                 ]);
 
             DB::commit();
+
+            logActivity('create carrier', $carrier['id']);
         } catch (\Exception $e) {
             DB::rollBack();
         }
@@ -52,6 +54,7 @@ class CarrierService
         DB::beginTransaction();
         try {
             /** @var Carrier $carrier */
+            $oldCarrier = $this->carrierRepository->find($id);
             $this->carrierRepository->update([
                 'carrier' => $data['carrier'],
                 'pic' => $data['pic'],
@@ -67,6 +70,10 @@ class CarrierService
                 'editor' => Auth::user()->name,
             ], $id);
             DB::commit();
+            logActivity('update carrier', $id, [
+                'before' => $oldCarrier->toArray(),
+                'after' => $data
+            ]);
         } catch (\Exception $e) {
             DB::rollBack();
         }
@@ -78,6 +85,7 @@ class CarrierService
             $this->carrierRepository->whereIn('id', $data)->delete();
 
             DB::commit();
+            logActivity('delete carrier', $data);
             return true;
         } catch (\Exception $e) {
             DB::rollBack();
