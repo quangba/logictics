@@ -40,7 +40,7 @@
                                     <button class="btn btn-primary" type="submit">
                                         <i class="fa fa-search"></i>
                                     </button>
-                                    <button id="basic" class="ml-10 float-right btn btn-primary">
+                                    <button id="basic" class="ml-5 ml-sm-10 float-right btn btn-primary">
                                         <i class="fa fa-exchange"></i>
                                     </button>
                                 </div>
@@ -101,7 +101,7 @@
                     </div>
                     @if (Auth::user()->id == SUPER_ADMIN_ID)
                     <div class="d-flex">
-                        <button class="btn btn-danger mb-3 btn-round" id="deleteSelected"><i class="md-delete" aria-hidden="true"></i> Delete</button>
+                        <button class="btn btn-danger mb-3 btn-round" id="deleteSelected"><i class="md-delete" aria-hidden="true"></i> <span class="hidden-sm-down ml-5">Delete</span></button>
                     </div>
                     @endif
 
