@@ -43,6 +43,7 @@ class UserService
                 $user->givePermissionTo($data['permissions']);
             }
             DB::commit();
+            logActivity('create user', $user['id']);
         } catch (\Exception $e) {
             DB::rollBack();
         }
@@ -58,6 +59,7 @@ class UserService
     {
         DB::beginTransaction();
         try {
+            $oldUser = $this->userRepository->find($id);
             $userData = [
                 'name' => $data['name'],
                 'email' => $data['email'],
@@ -74,6 +76,10 @@ class UserService
             $user->syncPermissions($permissions);
 
             DB::commit();
+            logActivity('update user', $id, [
+                'before' => $oldUser->toArray(),
+                'after' => $userData + ['permissions' => $permissions]
+            ]);
         } catch (\Exception $e) {
             DB::rollBack();
         }
@@ -110,6 +116,7 @@ class UserService
             $this->userRepository->whereIn('id', $data)->delete();
 
             DB::commit();
+            logActivity('delete user', $data);
             return true;
         } catch (\Exception $e) {
             DB::rollBack();

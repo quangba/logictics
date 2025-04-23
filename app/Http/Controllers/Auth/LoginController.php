@@ -50,4 +50,8 @@ class LoginController extends Controller
         $credentials = $request->only($this->username(), 'password');
         return array_add($credentials, 'active', FLAG_TRUE);
     }
+    protected function authenticated(Request $request, $user)
+    {
+        logActivity('login');
+    }
 }

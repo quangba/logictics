@@ -56,7 +56,7 @@
                             <button type="submit" class="btn btn-primary mt-10">Lưu thiết lập</button>
                         </div>
                     </form>
-                    <div class="w-160 mt-2">
+                    <div class="mt-2">
                         @error('duration')
                             <div class="text-danger text_error_name">{{ $message }}</div>
                         @enderror
