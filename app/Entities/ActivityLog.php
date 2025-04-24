@@ -18,7 +18,7 @@ class ActivityLog extends Model implements Transformable
     protected $table = 'activity_logs';
     protected $fillable = [
         'user_id', 'session_id', 'method', 'action', 'url',
-        'affected_ids', 'data', 'ip_address', 'location',
+        'affected_ids', 'data', 'ip_address', 'user_agent',
     ];
 
     protected $casts = [
