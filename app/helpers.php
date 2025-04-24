@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
-use Torann\GeoIP\Facades\GeoIP;
 use App\Entities\ActivityLog;
 
 if (!function_exists('save_chart_image')) {
@@ -31,7 +30,6 @@ if (!function_exists('logActivity')) {
     function logActivity($action, $affectedIds = null, $data = null)
     {
         $ip = Request::ip();
-        $location = GeoIP::getLocation($ip);
 
         ActivityLog::create([
             'user_id'      => Auth::id(),
@@ -41,7 +39,7 @@ if (!function_exists('logActivity')) {
             'url'          => Request::fullUrl(),
             'affected_ids' => is_array($affectedIds) ? implode(',', $affectedIds) : $affectedIds,
             'ip_address'   => $ip,
-            'location'     => $location->toArray(),
+            'user_agent'   => Request::header('User-Agent'),
             'data'         => $data,
         ]);
     }

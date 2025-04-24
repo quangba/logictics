@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Contracts\Repositories\PermissionRepository;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Services\UserService;
-use GuzzleHttp\Client;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Validator\Contracts\ValidatorInterface;
@@ -68,7 +67,6 @@ class UsersController extends Controller
      */
     public function index()
     {
-        dd(session()->getId());
         $this->userRepository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $users = $this->userRepository
             ->with('permissions')
