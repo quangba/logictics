@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarrierCleanConfigRequest;
 use App\Services\CarrierCleanConfigService;
-use Illuminate\Http\Request;
 
 class CarrierCleanConfigController extends Controller
 {

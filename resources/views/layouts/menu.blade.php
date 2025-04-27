@@ -16,6 +16,12 @@
                                 <span class="site-menu-title">Thiết lập dữ liệu định kỳ</span>
                             </a>
                         </li>
+                        <li class="dropdown site-menu-item has-sub {{ Request::is('activity-log') ? 'active' : '' }}">
+                            <a href="{{ route('users.activity_log') }}">
+                                <i class="icon md-assignment" aria-hidden="true"></i>
+                                <span class="site-menu-title">Quản lý Activity Log</span>
+                            </a>
+                        </li>
                     @endif
                     @can(MANAGE_USERS)
                     <li class="dropdown site-menu-item has-sub {{ Request::is('users*') ? 'active' : '' }}">
