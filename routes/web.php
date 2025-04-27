@@ -33,4 +33,5 @@ Route::middleware(['auth', 'logout_if_not_active'])->group(function () {
     Route::post('/import', 'CarriersController@storeImport')->name('carrier.storeImport');
     Route::get('/clean-config', 'CarrierCleanConfigController@index')->name('carrier.clean_config');
     Route::post('/clean-config', 'CarrierCleanConfigController@update')->name('carrier.clean_config.update');
+    Route::get('/activity-log', 'ActivityLogController@index')->name('users.activity_log');
 });
