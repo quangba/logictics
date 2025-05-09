@@ -9,60 +9,60 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-3 col-md-6">
+                <div class="col-xl-4 col-md-6">
                     <div class="card card-shadow">
                         <!-- Example Area -->
                         <div class="card-block">
-                            <p class="text-center">
-                                    <i class="icon md-triangle-up" aria-hidden="true"></i>
-                                <code>100%</code> </p>
                             <div class="example">
-                                <img style="width: 90%; height: 80px" src="{{asset('images/chart1.png')}}" alt="">
+                                <img style="width: 100%; height: 350px;" src="{{asset('images/image1.jpeg')}}" alt="">
                             </div>
                         </div>
                         <!-- End Example Area -->
                     </div>
                 </div>
 
-                <div class="col-xl-3 col-md-6">
+                <div class="col-xl-4 col-md-6">
                     <div class="card card-shadow">
                         <!-- Example Area -->
                         <div class="card-block">
-                            <p class="text-center">
-                                <i class="icon md-triangle-down" aria-hidden="true"></i>
-                                <code>100%</code> </p>
                             <div class="example">
-                                <img style="width: 90%; height: 80px" src="{{asset('images/chart2.png')}}" alt="">
+                                <img style="width: 100%; height: 350px;" src="{{asset('images/image2.jpeg')}}" alt="">
                             </div>
                         </div>
                         <!-- End Example Area -->
                     </div>
                 </div>
 
-                <div class="col-xl-3 col-md-6">
+                <div class="col-xl-4 col-md-6">
                     <div class="card card-shadow">
                         <!-- Example Area -->
                         <div class="card-block">
-                            <p class="text-center">
-                                <i class="icon md-triangle-up" aria-hidden="true"></i>
-                                <code>100%</code> </p>
                             <div class="example">
-                                <img style="width: 90%; height: 80px" src="{{asset('images/chart3.png')}}" alt="">
+                                <img style="width: 100%; height: 350px;" src="{{asset('images/image3.jpeg')}}" alt="">
                             </div>
                         </div>
                         <!-- End Example Area -->
                     </div>
                 </div>
 
-                <div class="col-xl-3 col-md-6">
+                <div class="col-xl-4 col-md-6">
                     <div class="card card-shadow">
                         <!-- Example Area -->
                         <div class="card-block">
-                            <p class="text-center">
-                                <i class="icon md-triangle-down" aria-hidden="true"></i>
-                                <code>100%</code> </p>
                             <div class="example">
-                                <img style="width: 90%; height: 80px" src="{{asset('images/chart4.png')}}" alt="">
+                                <img style="width: 100%; height: 350px;" src="{{asset('images/image4.jpeg')}}" alt="">
+                            </div>
+                        </div>
+                        <!-- End Example Area -->
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-shadow">
+                        <!-- Example Area -->
+                        <div class="card-block">
+                            <div class="example">
+                                <img style="width: 100%; height: 350px;" src="{{asset('images/image5.jpeg')}}" alt="">
                             </div>
                         </div>
                         <!-- End Example Area -->

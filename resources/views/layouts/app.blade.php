@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('theme/global/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/global/css/bootstrap-extend.min.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/assets/css/site.css') }}">
+    <link rel="icon" href="{{ asset('theme/assets/images/new-logo.jpg') }}" type="image/jpg">
 
     <!-- Plugins -->
     <link rel="stylesheet" href="{{ asset('theme/global/vendor/animsition/animsition.css') }}">

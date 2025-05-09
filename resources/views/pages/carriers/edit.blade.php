@@ -59,7 +59,7 @@
                                     @enderror
                                 </div>
 
-                                <h5>Effective Date</h5>
+                                <h5>Effective Date <span class="text-danger">*</span></h5>
                                 <div class="input-daterange form-group form-material" data-plugin="datepicker"
                                     data-target="1">
                                     <div class="input-group" style="width: 100%">
@@ -77,7 +77,7 @@
                                     </div>
                                 </div>
 
-                                <h5>Expired Date</h5>
+                                <h5>Expired Date <span class="text-danger">*</span></h5>
                                 <div class="input-daterange form-group form-material" data-plugin="datepicker"
                                     data-target="1">
                                     <div class="input-group" style="width: 100%">

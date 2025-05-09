@@ -23,8 +23,13 @@ class CheckCarrierPermission
         $action = $request->route()->getActionMethod();
 
         $managerCarrierActions = ['index', 'create', 'store', 'edit', 'update', 'search', 'show'];
+        $viewerAndAddActions = ['index', 'create', 'store', 'search', 'show'];
         $viewerActions = ['index', 'show', 'search'];
         if ($user->hasPermissionTo('manage_carrier') && in_array($action, $managerCarrierActions)) {
+            return $next($request);
+        }
+
+        if ($user->hasPermissionTo('view_add_carrier') && in_array($action, $viewerAndAddActions)) {
             return $next($request);
         }
 

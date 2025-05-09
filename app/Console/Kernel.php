@@ -24,11 +24,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('queue:work --daemon --once')->withoutOverlapping();
-
-        $schedule->command('backup:run --only-db')->weeklyOn(2, '00:00');
-
-        $schedule->command('report-image:clear')->monthly();
+//        $schedule->command('queue:work --daemon --once')->withoutOverlapping();
+//
+//        $schedule->command('backup:run --only-db')->weeklyOn(2, '00:00');
+//
+//        $schedule->command('report-image:clear')->monthly();
 
         $schedule->command('carrier:clean')->dailyAt('00:00');
     }

@@ -28,7 +28,7 @@
     <tbody>
         @foreach ($carriers as $key => $carrier)
             <tr href="{{ route('carrier.show', $carrier->id) }}"
-                bgcolor="{{ strtotime(date('Y-m-d')) > strtotime($carrier->expired_date) ? '#FF0000' : '' }}"
+                @if(strtotime(date('Y-m-d')) > strtotime($carrier->expired_date)) style="color: #FF0000;" @endif
                 class="text-center">
                 @if (Auth::user()->id == SUPER_ADMIN_ID)
                     <td class="page-break td-checkbox text-center">

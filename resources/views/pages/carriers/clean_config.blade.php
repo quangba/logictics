@@ -19,7 +19,7 @@
                         @if (isset($config))
                             <p class="alert alert-info">
                                 <strong>Thiết lập hiện tại:</strong> hệ thống sẽ xoá các Freight có <code>updated_at</code>
-                                là <strong>{{ $config->duration }} tháng</strong>.
+                                trước hoặc bằng <strong>{{ $config->duration }} tháng</strong>.
                             </p>
                         @else
                             <p class="alert alert-warning">
