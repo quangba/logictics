@@ -9,14 +9,14 @@
                 <li class="breadcrumb-item active">Danh sách Freight</li>
             </ol>
 
-            @can(MANAGE_CARRIER)
+            @if(Gate::check(MANAGE_CARRIER) || Gate::check(VIEW_ADD_CARRIER))
                 <div class="page-header-actions">
                     <a class="btn btn-sm btn-primary btn-round" href="{{ route('carrier.create') }}">
                         <i class="icon md-collection-plus" aria-hidden="true"></i>
                         <span class="hidden-sm-down">Create Freight</span>
                     </a>
                 </div>
-            @endcan
+            @endif
         </div>
         <div class="page-content">
             <div class="panel">

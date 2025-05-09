@@ -22,6 +22,7 @@ class RolesAndPermissionSeeder extends Seeder
 
         Permission::create(['name' => MANAGE_USERS]);
         Permission::create(['name' => MANAGE_CARRIER]);
+        Permission::create(['name' => VIEW_ADD_CARRIER]);
 
 
         /** @var User $superAdmin */

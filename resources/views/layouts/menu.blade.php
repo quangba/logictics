@@ -54,7 +54,7 @@
                     </li>
                     @endcan
 
-                    @if(Gate::check(VIEW_CARRIER) || Gate::check(MANAGE_CARRIER))
+                    @if(Gate::check(VIEW_CARRIER) || Gate::check(MANAGE_CARRIER) || Gate::check(VIEW_ADD_CARRIER))
                         <li class="dropdown site-menu-item has-sub {{ Request::is('carrier/*') || Request::is('carrier') ? 'active' : '' }}">
                             <a data-toggle="dropdown" data-dropdown-toggle="false" href="javascript:void(0)">
                                 <i class="icon md-stackoverflow" aria-hidden="true"></i>
@@ -71,14 +71,14 @@
                                                         <span class="site-menu-title">Danh sách Freight</span>
                                                     </a>
                                                 </li>
-                                                @can(MANAGE_CARRIER)
+                                                @if(Gate::check(MANAGE_CARRIER) || Gate::check(VIEW_ADD_CARRIER))
                                                 <li
                                                     class="site-menu-item {{ Request::is('carrier/create') ? 'active' : '' }}">
                                                     <a class="animsition-link" href="{{route('carrier.create')}}">
                                                         <span class="site-menu-title">Tạo mới Freight</span>
                                                     </a>
                                                 </li>
-                                                @endcan
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>
