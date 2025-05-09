@@ -25,4 +25,9 @@ class ActivityLog extends Model implements Transformable
         'data' => 'array',
         'location' => 'array',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }
