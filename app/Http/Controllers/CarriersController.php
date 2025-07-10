@@ -318,9 +318,16 @@ class CarriersController extends Controller
                 ->get();
         }
 
-        $fileName = 'freight'.time();
+        // Ensure folder exists
+        $folderPath = public_path('excel/import');
+        if (!file_exists($folderPath)) {
+            mkdir($folderPath, 0777, true);
+        }
 
-        Excel::create($fileName, function($excel) use ($carriers){ // su dung use($books) moi co the truyen gia tri bien $books tu ben ngoai vao ham
+        $fileName = 'freight'.time();
+        $filePath = $folderPath . '/' . $fileName . '.xlsx';
+
+        Excel::create($fileName, function($excel) use ($carriers){
             $excel->sheet('Thống kê Freight', function ($sheet) use ($carriers) {
                 $sheet->mergeCells('A1:I1');
 
@@ -330,15 +337,24 @@ class CarriersController extends Controller
                     $cell->setFontWeight('bold');
                 });
 
-                $result = $this->getDataToLaravelExcel($carriers); //Goi den ham getDataToLaravelExcel de tạo mang du lieu can in ra Excel
-
+                $result = $this->getDataToLaravelExcel($carriers);
                 $sheet->fromArray($result, null, 'A3', false, true);
             });
-        })->store('xlsx', public_path('/excel/import'));
+        })->store('xlsx', $folderPath);
 
-        $path = 'excel/import/' . $fileName . '.xlsx';
+        return response()->download($filePath);
+    }
 
-        return redirect(url('/' . $path));
+    private function sanitizeExcelText($text)
+    {
+        if (is_null($text)) return '';
+        $text = trim($text);
+
+        if (preg_match('/^[=+\-@]/', $text)) {
+            return "'".$text;
+        }
+
+        return $text;
     }
 
     private function getDataToLaravelExcel($carriers)
@@ -347,19 +363,19 @@ class CarriersController extends Controller
 
         foreach ($carriers as $key => $value) {
             $result[] = [
-                'Carrier' => isset($value->carrier) ? $value->carrier : '',
-                'PIC' => isset($value->pic) ? $value->pic : '',
-                'POL' => isset($value->pol) ? $value->pol : '',
-                'Effective Date' => isset($value->effective_date) ? $value->effective_date : '',
-                'Expired Date' => isset($value->expired_date) ? $value->expired_date : '',
-                'Freight' => isset($value->freight) ? $value->freight : '',
-                'Freight Note' => isset($value->freight_note) ? $value->freight_note : '',
-                'Frequency' => isset($value->frequency) ? $value->frequency : '',
-                'Transit Time' => isset($value->transit_time) ? $value->transit_time : '',
-                'Input User' => isset($value->input_user) ? $value->input_user : '',
-                'Create At' => isset($value->created_at) ? $value->created_at : '',
-                'Editor' => isset($value->editor) ? $value->editor : '',
-                'Update At' => isset($value->updated_at) ? $value->updated_at : '',
+                'Carrier' => isset($value->carrier) ? $this->sanitizeExcelText($value->carrier) : '',
+                'PIC' => isset($value->pic) ? $this->sanitizeExcelText($value->pic) : '',
+                'POL' => isset($value->pol) ? $this->sanitizeExcelText($value->pol) : '',
+                'Effective Date' => isset($value->effective_date) ? $this->sanitizeExcelText($value->effective_date) : '',
+                'Expired Date' => isset($value->expired_date) ? $this->sanitizeExcelText($value->expired_date) : '',
+                'Freight' => isset($value->freight) ? $this->sanitizeExcelText($value->freight) : '',
+                'Freight Note' => isset($value->freight_note) ? $this->sanitizeExcelText($value->freight_note) : '',
+                'Frequency' => isset($value->frequency) ? $this->sanitizeExcelText($value->frequency) : '',
+                'Transit Time' => isset($value->transit_time) ? $this->sanitizeExcelText($value->transit_time) : '',
+                'Input User' => isset($value->input_user) ? $this->sanitizeExcelText($value->input_user) : '',
+                'Create At' => isset($value->created_at) ? $this->sanitizeExcelText($value->created_at) : '',
+                'Editor' => isset($value->editor) ? $this->sanitizeExcelText($value->editor) : '',
+                'Update At' => isset($value->updated_at) ? $this->sanitizeExcelText($value->updated_at) : '',
 
             ];
         }
